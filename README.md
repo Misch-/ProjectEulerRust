@@ -17,13 +17,13 @@ As well as [KCov](https://simonkagstrom.github.io/kcov/) with [Coveralls](https:
 Run all problems:
 
 ```
-cargo run --release --bin ??? (not implemented)
+cargo run --bin ??? (not implemented)
 ```
 
 Run specific problem:
 
 ```
-cargo run --release --bin ??? (not implemented)
+cargo run --bin 1
 ```
 
 ## Rust's generated documentation
