@@ -54,7 +54,7 @@ after_success:
       done
   - |
       for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
-        ${KCOV} ./target/debug/${PROBLEM}
+        ${KCOV} ./target/debug/${PROBLEM}.rs
       done
 
 env:
