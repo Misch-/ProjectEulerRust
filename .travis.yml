@@ -21,6 +21,7 @@ before_script:
       git clone https://github.com/huonw/travis-cargo.git
       cd travis-cargo
       sudo python setup.py install
+      cd -
       export PATH=$HOME/.local/bin:$PATH
 
 script:
