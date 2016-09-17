@@ -30,6 +30,7 @@ script:
 after_success:
   - | 
     travis-cargo -q --only ${VERSION} doc-upload
+    echo "$TRAVIS_JOB_ID"
     travis-cargo -q --only ${VERSION} coveralls --no-sudo --verify
 
 env:
