@@ -28,3 +28,15 @@ fn solve(bound: u32) -> u32 {
 fn main() {
     println!("{}", solve(4000000).to_string());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn sum_below_100() {
+        assert_eq!(188, super::solve(100));
+    }
+    #[test]
+    fn sum_below_4000000() {
+        assert_eq!(4613732, super::solve(4000000));
+    }
+}

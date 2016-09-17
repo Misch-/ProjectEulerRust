@@ -34,3 +34,11 @@ fn solve() -> u64 {
 fn main() {
     println!("{}", solve().to_string());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn max_palindrome_3_digits() {
+        assert_eq!(906609, super::solve());
+    }
+}

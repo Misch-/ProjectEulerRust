@@ -14,12 +14,6 @@ As well as [KCov](https://simonkagstrom.github.io/kcov/) with [Coveralls](https:
 
 ## Try it out
 
-Run all problems:
-
-```
-cargo run --bin ??? (not implemented)
-```
-
 Run specific problem:
 
 ```

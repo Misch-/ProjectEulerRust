@@ -22,3 +22,15 @@ fn solve(mut num: u64) -> u64 {
 fn main() {
     println!("{}", solve(600851475143).to_string());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn factor_13195() {
+        assert_eq!(29, super::solve(13195));
+    }
+    #[test]
+    fn factor_600851475143() {
+        assert_eq!(6857, super::solve(600851475143));
+    }
+}

@@ -12,3 +12,15 @@ fn solve(bound: u32) -> u32 {
 fn main() {
     println!("{}", solve(1000).to_string());
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn sum_below_10() {
+        assert_eq!(23, super::solve(10));
+    }
+    #[test]
+    fn sum_below_1000() {
+        assert_eq!(233168, super::solve(1000));
+    }
+}
