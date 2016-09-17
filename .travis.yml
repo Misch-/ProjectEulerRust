@@ -36,7 +36,7 @@ script:
       done
   - travis-cargo -q build -- --release
   - |
-      for PROBLEM in `seq PROB_NUM_COMPLETED`; do
+      for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
         travis-cargo -q run -- --release --bin PROBLEM
       done
   - travis-cargo -q test # run test and doctest
@@ -52,7 +52,7 @@ after_success:
         ${KCOV} ./target/debug/deps/${PKG}-*
       done
   - |
-      for PROBLEM in `seq PROB_NUM_COMPLETED`; do
+      for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
         ${KCOV} ./target/debug/${PROBLEM}
       done
 
