@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language: rust
 
 addons:
@@ -8,6 +8,7 @@ addons:
       - libelf-dev
       - libdw-dev
       - binutils-dev
+      - git
 
 rust:
   - nightly
@@ -16,7 +17,10 @@ rust:
 
 before_script:
   - |
-      pip install 'travis-cargo<0.2' --user
+      #pip install 'travis-cargo<0.2' --user
+      git clone https://github.com/huonw/travis-cargo.git
+      cd travis-cargo
+      python setup.py install
       export PATH=$HOME/.local/bin:$PATH
 
 script:
@@ -30,7 +34,6 @@ script:
 after_success:
   - | 
     travis-cargo -q --only ${VERSION} doc-upload
-    echo "$TRAVIS_JOB_ID"
     travis-cargo -q --only ${VERSION} coveralls --no-sudo --verify
 
 env:
