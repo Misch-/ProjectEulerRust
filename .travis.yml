@@ -42,23 +42,24 @@ script:
       done
   - travis-cargo -q test # run test and doctest
   - travis-cargo -q bench
-  - travis-cargo -q --only ${DOC_UPLOAD_VERSION} doc
+  - travis-cargo -q --only ${VERSION} doc
 
 after_success:
-  - travis-cargo -q --only ${DOC_UPLOAD_VERSION} doc-upload
+  - travis-cargo -q --only ${VERSION} doc-upload
   # run tests again with gathering coverage information
   # doc tests are not being run.
-  - |
-      for PKG in $(echo ${SUB_PKGS}); do
-        ${KCOV} ./target/release/deps/${PKG}-*
-      done
-  - |
-      for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
-        ${KCOV} ./target/release/${PROBLEM}
-      done
+  #- |
+  #    for PKG in $(echo ${SUB_PKGS}); do
+  #      ${KCOV} ./target/release/deps/${PKG}-*
+  #    done
+  #- |
+  #    for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
+  #      ${KCOV} ./target/release/${PROBLEM}
+  #    done
+  - travis-cargo -q --only ${VERSION} coveralls
 
 env:
   global:
     - SUB_PKGS=""
     - TRAVIS_CARGO_NIGHTLY_FEATURE=""
-    - DOC_UPLOAD_VERSION=nightly
+    - VERSION=nightly
