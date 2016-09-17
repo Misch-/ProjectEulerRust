@@ -35,8 +35,7 @@ script:
         travis-cargo -q bench -- -p ${PKG}
       done
   - travis-cargo -q build -- --release
-  #- travis-cargo -q run -- --release --bin 1
-  #- travis-cargo -q run -- --release --bin 2
+  - travis-cargo -q run -- --release --bin `seq PROB_NUM_COMPLETED`
   - travis-cargo -q test # run test and doctest
   - travis-cargo -q bench
   - travis-cargo -q --only ${DOC_UPLOAD_VERSION} doc
@@ -49,13 +48,14 @@ after_success:
       for PKG in $(echo ${SUB_PKGS}); do
         ${KCOV} ./target/debug/deps/${PKG}-*
       done
-  #- |
-  #    for EXE in ./target/debug/1*; ./target/debug/2*; do
-  #      ${KCOV} ${EXE}
-  #    done
+  - |
+      for PROBLEM in `seq PROB_NUM_COMPLETED`; do
+        ${KCOV} ./target/debug/${EXE}
+      done
 
 env:
   global:
+    - PROB_NUM_COMPLETED=$(basename $(ls src/bin | tail -1) .rs)
     - SUB_PKGS=""
     - TRAVIS_CARGO_NIGHTLY_FEATURE=""
     - DOC_UPLOAD_VERSION=nightly
