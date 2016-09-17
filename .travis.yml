@@ -50,11 +50,11 @@ after_success:
   # doc tests are not being run.
   - |
       for PKG in $(echo ${SUB_PKGS}); do
-        ${KCOV} ./target/debug/deps/${PKG}-*
+        ${KCOV} ./target/release/deps/${PKG}-*
       done
   - |
       for PROBLEM in $(seq ${PROB_NUM_COMPLETED}); do
-        ${KCOV} ./target/debug/${PROBLEM}
+        ${KCOV} ./target/release/${PROBLEM}
       done
 
 env:
