@@ -2,11 +2,13 @@
 //
 //What is the largest prime factor of the number 600851475143 ?
 
+// Loop through 0 to sqrt of composite number looking for factors, if found divide composite by factor and recurse until none are left.
 fn solve(mut num: u64) -> u64 {
     let mut i: u64 = 2;
     let sqrt: u64 = (num as f64).sqrt() as u64 + 1;
     while i < (sqrt) {
         if num % i == 0 {
+            //if result is one, num is already prime
             if num / i != 1 {
                 num = num / i;
                 i = 2;

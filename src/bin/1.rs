@@ -2,6 +2,7 @@
 //
 //Find the sum of all the multiples of 3 or 5 below 1000.
 
+//Returns sum of all multiples of 3 or 5 below given bound
 fn solve(bound: u32) -> u32 {
     (1..bound)
         .filter(|&n| n % 3 == 0 || n % 5 == 0)

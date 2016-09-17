@@ -4,6 +4,7 @@
 //
 //By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
 
+// returns nth fibonacci term
 fn fibonacci(nthterm: u32) -> u32 {
     if nthterm <= 2 {
         return nthterm;
@@ -11,6 +12,7 @@ fn fibonacci(nthterm: u32) -> u32 {
     fibonacci(nthterm - 1) + fibonacci(nthterm - 2)
 }
 
+// sums every even fibonacci term under given bound
 fn solve(bound: u32) -> u32 {
     let mut i = 0;
     let mut sum = 0;
