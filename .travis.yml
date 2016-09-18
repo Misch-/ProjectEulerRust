@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 language: rust
 
 addons:
@@ -8,7 +8,6 @@ addons:
       - libelf-dev
       - libdw-dev
       - binutils-dev
-      - git
 
 rust:
   - nightly
@@ -17,26 +16,32 @@ rust:
 
 before_script:
   - |
-      #pip install 'travis-cargo<0.2' --user
-      git clone https://github.com/Misch-/travis-cargo.git
-      cd travis-cargo
-      sudo python setup.py install
-      cd -
+      pip install 'travis-cargo<0.2' --user
       export PATH=$HOME/.local/bin:$PATH
+      export KCOV="${TRAVIS_BUILD_DIR}/kcov/build/src/kcov --verify --exclude-pattern=/.cargo --coveralls-id=${TRAVIS_JOB_ID} ${TRAVIS_BUILD_DIR}/coverage"
+      wget https://github.com/SimonKagstrom/kcov/archive/master.zip
+      unzip master.zip
+      mv kcov-master kcov
+      mkdir kcov/build
+      cd kcov/build
+      cmake ..
+      make
+      cd ${TRAVIS_BUILD_DIR}
 
 script:
   - |  
+      set -e
       travis-cargo -q build -- --release
-      for PROBLEM in $(seq $(basename $(ls src/bin | tail -1) .rs)); do travis-cargo -q run -- --release --bin ${PROBLEM}; done
+      export PROB_NUM_COMPLETED=$(basename $(ls src/bin | tail -1) .rs)
+      for PROBLEM in $(seq $(PROB_NUM_COMPLETED)); do travis-cargo -q run -- --release --bin ${PROBLEM}; done
       travis-cargo -q test 
       travis-cargo -q bench
       travis-cargo -q --only ${VERSION} doc
 
 after_success:
   - | 
-    travis-cargo -q --only ${VERSION} doc-upload
-    travis-cargo -q --only ${VERSION} coveralls --no-sudo --verify
-
+      travis-cargo -q --only ${VERSION} doc-upload
+      for PROBLEM in $(seq $(PROB_NUM_COMPLETED)); do ${KCOV} ./target/debug/${PROBLEM}-*; done
 env:
   global:
     - SUB_PKGS=""
