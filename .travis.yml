@@ -18,32 +18,17 @@ before_script:
   - |
       pip install 'travis-cargo<0.2' --user
       export PATH=$HOME/.local/bin:$PATH
-      export KCOV="${TRAVIS_BUILD_DIR}/kcov/build/src/kcov --verify --exclude-pattern=/.cargo --coveralls-id=${TRAVIS_JOB_ID} ${TRAVIS_BUILD_DIR}/coverage"
-      wget https://github.com/SimonKagstrom/kcov/archive/master.zip
-      unzip master.zip
-      mv kcov-master kcov
-      mkdir kcov/build
-      cd kcov/build
-      cmake ..
-      make
-      cd ${TRAVIS_BUILD_DIR}
-
 script:
   - |  
-      set -e
-      travis-cargo -q build -- --release
-      export PROB_NUM_COMPLETED=$(basename $(ls src/bin | tail -1) .rs)
-      for PROBLEM in $(seq $(PROB_NUM_COMPLETED)); do travis-cargo -q run -- --release --bin ${PROBLEM}; done
-      travis-cargo -q test 
-      travis-cargo -q bench
-      travis-cargo -q --only ${VERSION} doc
-
+      travis-cargo build -- --release
+      travis-cargo test 
+      travis-cargo bench
+      travis-cargo doc
 after_success:
   - | 
-      travis-cargo -q --only ${VERSION} doc-upload
-      for PROBLEM in $(seq $(PROB_NUM_COMPLETED)); do ${KCOV} ./target/debug/${PROBLEM}-*; done
+      travis-cargo doc-upload
+      travis-cargo coveralls --no-sudo --verify
+
 env:
   global:
-    - SUB_PKGS=""
-    - TRAVIS_CARGO_NIGHTLY_FEATURE=""
     - VERSION=nightly
