@@ -8,7 +8,7 @@ Playing with [Travis CI](https://travis-ci.org/) and rust testing
 
 [![Build Status](https://travis-ci.org/Misch-/ProjectEulerRust.png?branch=master)](https://travis-ci.org/Misch-/ProjectEulerRust)
 
-As well as [KCov](https://simonkagstrom.github.io/kcov/) with [Coveralls](https://coveralls.io/) to experiment with code coverage of created tests!
+As well as [KCov](https://simonkagstrom.github.io/kcov/) with [Coveralls](https://coveralls.io/) to experiment with code coverage of created tests! Starts a build a on travis CI and uploads coverage results to coveralls for each Rust branch, nightly, beta, and stable.
 
 [![Coverage Status](https://coveralls.io/repos/github/Misch-/ProjectEulerRust/badge.svg?branch=master)](https://coveralls.io/github/Misch-/ProjectEulerRust?branch=master)
 
