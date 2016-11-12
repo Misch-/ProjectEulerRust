@@ -11,8 +11,8 @@ addons:
 
 rust:
   - nightly
-  # - beta
-  # - stable
+  - beta
+  - stable
 
 before_script:
   - |
@@ -35,5 +35,4 @@ after_success:
 
 env:
   global:
-    - VERSION=nightly
     - TRAVIS_CARGO_NIGHTLY_FEATURE=""
