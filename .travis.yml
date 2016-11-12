@@ -19,7 +19,7 @@ before_script:
       #pip install 'travis-cargo<0.2' --user
       git clone https://github.com/Misch-/travis-cargo.git
       cd travis-cargo
-      sudo python setup.py install
+      python setup.py install --user
       cd -
       export PATH=$HOME/.local/bin:$PATH
 script:
